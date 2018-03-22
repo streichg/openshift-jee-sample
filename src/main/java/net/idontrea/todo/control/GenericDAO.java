@@ -12,7 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class GenericDAO<T> 
 {
-	private static final String UNIT_NAME="csp";
+	private static final String UNIT_NAME="todo";
 	
 	@PersistenceContext(unitName=UNIT_NAME)
 	private EntityManager em;
@@ -26,8 +26,6 @@ public abstract class GenericDAO<T>
 	
 	public T create(T entity)
 	{
-		//System.out.println("Class: " + entity.getClass());
-		//System.out.println("Creating Object: " + entity.toString());
 		em.persist(entity);
 		return entity;
 	}
@@ -40,7 +38,6 @@ public abstract class GenericDAO<T>
 	
 	public T update (T entity)
 	{
-		//System.out.println("Updating: " + entity);
 		return em.merge(entity);
 	}
 	

@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<form id="loginForm" method="post" action="#{request.contextPath}/Login">
+		<h:outputLabel value="Username"></h:outputLabel>
+		<input name="j_username" type="text" />
+		<h:outputLabel value="Password"></h:outputLabel>
+		<input name="j_password" size="15" type="password" />
+		<input type="submit" name="login" value="Login" />
+	</form>
+	
+</ui:composition>
