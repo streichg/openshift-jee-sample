@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -22,6 +25,8 @@ import javax.persistence.Transient;
 public class User implements Serializable
 {
 	private static final long serialVersionUID=1;
+	
+	public static final String FIND_BY_USERNAME="User.findUserByName";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -36,9 +41,23 @@ public class User implements Serializable
 	private Boolean enabled=true;
 	private String email;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable
 	private List<Role> roles=new ArrayList<>();
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST})
+	private List<Task> tasks=new ArrayList<>();
+	
+
+	public List<Task> getTasks()
+	{
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks)
+	{
+		this.tasks = tasks;
+	}
 
 	public long getId() 
 	{
@@ -127,5 +146,18 @@ public class User implements Serializable
 	{
 		this.roles.remove(role);
 		role.getUsers().remove(this);
+	}
+	
+	public void addTask(Task t)
+	{
+		if(!this.tasks.contains(t))
+		{
+			this.tasks.add(t);
+		}
+	}
+	
+	public void removeTask(Task t)
+	{
+		this.tasks.remove(t);
 	}
 }

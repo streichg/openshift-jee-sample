@@ -9,6 +9,9 @@
 		<ui:fragment rendered="${facesContext.externalContext.isUserInRole('admin')==true}">
 			<td><a href="admin/">Admin</a></td>
 		</ui:fragment>
+		<ui:fragment rendered="${facesContext.externalContext.isUserInRole('user')==true}">
+			<td><a href="Tasks.jsf">Tasks</a></td>
+		</ui:fragment>
 	</tr>
 </table>
 

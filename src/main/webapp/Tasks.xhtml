@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				template="/templates/main.xhtml">
+<ui:define name="title">
+	Task List
+</ui:define>
+
+<ui:define name="scripts">
+	<h:outputScript target="head">
+	$(document).ready(function() {
+		$(".datepicker").datepicker({
+			dateFormat: 'mm/dd/yy',
+			changeMonth: true,
+			changeYear: true,
+			yearRange: "2018:2099"
+		});
+	});
+	</h:outputScript>
+</ui:define>
+
+<ui:define name="content">
+	<ui:fragment rendered="${facesContext.externalContext.isUserInRole('user')==true}">
+		<h:form id="tasks">
+			<h:dataTable var="task" value="#{session.getAttribute('User').tasks}">
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					#{task.description}
+					<f:facet name="footer"><h:inputText value="#{taskBean.task.description}"/></f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Due</f:facet>
+					#{task.due}
+					<f:facet name="footer"><h:inputText value="#{taskBean.dueString}" styleClass="datepicker"/></f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Priority</f:facet>
+					#{task.priority}
+					<f:facet name="footer">
+						<h:selectOneMenu value="#{taskBean.task.priority}">
+							<f:selectItem itemValue="1" itemLabel="1" />
+							<f:selectItem itemValue="2" itemLabel="2" />
+							<f:selectItem itemValue="3" itemLabel="3" />
+							<f:selectItem itemValue="4" itemLabel="4" />
+							<f:selectItem itemValue="5" itemLabel="5" />
+						</h:selectOneMenu>
+					</f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+						<h:commandButton value="Remove" action="#{taskBean.remove(task.id)}" />
+					<f:facet name="footer">
+						<h:commandButton value="Submit" action="#{taskBean.submit}" />
+					</f:facet>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:fragment>
+	<ui:fragment rendered="${facesContext.externalContext.isUserInRole('user')==false}">
+		Please log in.
+	</ui:fragment>
+</ui:define>
+
+</ui:composition>

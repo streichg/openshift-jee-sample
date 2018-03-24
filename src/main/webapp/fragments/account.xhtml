@@ -4,12 +4,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <div>
-	#{request.remoteUser}
+	#{session.getAttribute("User").username}
 	<ui:fragment rendered="#{request.remoteUser==null}" >
 		<ui:include src="login.xhtml" rendered="#{request.remoteUser==null}" />
 	</ui:fragment>
 	<ui:fragment rendered="#{request.remoteUser!=null}">
-		Logged in
+		Logged in <br/>
+		<a href="#{request.contextPath}/logout">Logout</a>
 	</ui:fragment>
 </div>
 	
