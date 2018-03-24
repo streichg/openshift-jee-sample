@@ -41,7 +41,7 @@ public class User implements Serializable
 	private Boolean enabled=true;
 	private String email;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable
 	private List<Role> roles=new ArrayList<>();
 	
