@@ -144,7 +144,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true" use-ccm="true">
-                    <connection-url>jdbc:mysql://mysql:3306/testToDo</connection-url>
+                    <connection-url>jdbc:mysql://mysql:3306/testToDo&useSSL=false</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <flush-strategy>IdleConnections</flush-strategy>
