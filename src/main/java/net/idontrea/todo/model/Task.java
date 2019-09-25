@@ -20,9 +20,7 @@ public class Task implements Serializable
 	public static final String FIND_BY_USER="findTaskByUser";
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private long id;
-	
+	@GeneratedValue(strategy=GenerationType.AUTO
 	private String description;
 	
 	private DateTime due;
